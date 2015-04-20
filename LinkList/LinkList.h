@@ -16,7 +16,7 @@ public:
 	}
 
 	void copy(const LinkList<Type>& toCopy){
-		empty();
+		clear();
 
 		int otherLength = toCopy.getLength();
 		Type record;
@@ -33,7 +33,7 @@ public:
 	}
 
 	~LinkList(){
-		empty();
+		clear();
 	}
 
 	Type getRecord(int recordNumber) const{
@@ -46,8 +46,11 @@ public:
 		}
 	}
 
-	bool deleteRecord(int recordNumber)
+	bool deleteRecord(int recordNumber = 0)
 	{
+		if (recordNumber == 0)
+			recordNumber = length;//just like adding a record, removing w/o a param deletes the last
+
 		if ((recordNumber > length) || recordNumber < 1){
 			return false;
 		}
@@ -121,6 +124,17 @@ public:
 		return length;
 	}
 
+	void clear(){//erase everything
+		int holder = getLength();
+		for (int i = 1; i <= holder; i++){
+			deleteRecord(1);
+		}
+
+		length = 0;
+		Start = nullptr;
+		Latest = nullptr;//just to make sure it's really dead
+	}
+
 private:
 	struct element{
 		Type data;
@@ -138,17 +152,6 @@ private:
 			counter++;
 		}
 		return Current;
-	}
-
-	void empty(){//erase everything
-		int holder = getLength();
-		for (int i = 1; i <= holder; i++){
-			deleteRecord(1);
-		}
-
-		length = 0;
-		Start = nullptr;
-		Latest = nullptr;//just to make sure it's really dead
 	}
 
 	element *Start;
