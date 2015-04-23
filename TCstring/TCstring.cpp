@@ -1,3 +1,4 @@
+using namespace std;
 #include "stdafx.h"
 #include "TCstring.h"
 
@@ -5,7 +6,8 @@
 TCstring::TCstring(){
 	SuperString.clear();
 }
-TCstring::~TCstring(){}//array is automatically destroyed once it leaves scope, oddly. I expected to have to remove it myself, as I made it with new, but I suppose it's an actual variable.
+TCstring::~TCstring(){
+}//array is automatically destroyed once it leaves scope, oddly. I expected to have to remove it myself, as I made it with new, but I suppose it's an actual variable.
 
 TCstring::TCstring(const CHAR input[]){
 	addChar(input);
@@ -61,8 +63,29 @@ TCstring & TCstring::operator+=(const TCstring input){
 	addTChar(input.getTCHAR());
 	return *this;
 }
+
 TCstring & TCstring::operator=(const TCstring & input){
 	SuperString.copy(input.SuperString);
+	return *this;
+}
+TCstring & TCstring::operator=(const CHAR input[]){
+	clear();
+	addChar(input);
+	return *this;
+}
+TCstring & TCstring::operator=(const TCHAR input[]){
+	clear();
+	addTChar(input);
+	return *this;
+}
+TCstring & TCstring::operator=(const wstring input){
+	clear();
+	addWString(input);
+	return *this;
+}
+TCstring & TCstring::operator=(const string input){
+	clear();
+	addString(input);
 	return *this;
 }
 

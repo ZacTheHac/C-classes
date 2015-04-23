@@ -1,28 +1,37 @@
 #pragma once
+//using namespace std;
+#include <string>
 #include "LinkList.h"
 #include "tchar.h"
-#include "string.h"
+
 
 
 class TCstring
 {
 public:
 	TCstring();
+	~TCstring();
+
 	TCstring(const CHAR input[]);
 	TCstring(const TCHAR input[]);
 	TCstring(const wstring input);
 	TCstring(const string input);
-	~TCstring();
 	/*TCstring & operator+(const CHAR input[]);
 	TCstring & operator+(const TCHAR input[]);
 	TCstring & operator+(const wstring input);
-	TCstring & operator+(const string input);I cant get these to work right. may revisit.*/
+	TCstring & operator+(const string input);//I cant get these to work right. may revisit.*/
 	TCstring & operator+=(const CHAR input[]);
 	TCstring & operator+=(const TCHAR input[]);
 	TCstring & operator+=(const wstring input);
 	TCstring & operator+=(const string input);
 	TCstring & operator+=(const TCstring input);
+
 	TCstring & operator=(const TCstring & input);
+	TCstring & operator=(const CHAR input[]);
+	TCstring & operator=(const TCHAR input[]);
+	TCstring & operator=(const wstring input);
+	TCstring & operator=(const string input);
+
 	TCHAR & operator[](const int index)const;
 	bool operator>(const TCstring compare)const;
 	bool operator>=(const TCstring compare)const;
@@ -30,11 +39,13 @@ public:
 	bool operator<=(const TCstring compare)const;
 	bool operator==(const TCstring compare)const;
 	bool operator!=(const TCstring compare)const;//warning: all comparisons do a case-insensitive search by default. use the compare functions if you need case-sensitive
+
 	int compare(const TCstring input, bool caseSensitive = false)const;//0 means they're equal, -1 means this one is bigger, 1 means the input is bigger
 	int compare(const CHAR input[], bool caseSensitive = false)const;//0 means they're equal, -1 means this one is bigger, 1 means the input is bigger
 	int compare(const TCHAR input[], bool caseSensitive = false)const;//0 means they're equal, -1 means this one is bigger, 1 means the input is bigger
 	int compare(const wstring input, bool caseSensitive = false)const;//0 means they're equal, -1 means this one is bigger, 1 means the input is bigger
 	int compare(const string input, bool caseSensitive = false)const;//0 means they're equal, -1 means this one is bigger, 1 means the input is bigger
+
 	LPCWSTR getLPCWSTR() const;
 	TCHAR* getTCHAR() const;
 	wstring getWString() const;
